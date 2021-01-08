@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wp_user
+      WORDPRESS_DB_PASSWORD: 8ed7bc9667b25c89aa2d85aaa3332846fbeac94a0944d7c939ba8e3ed427db71
+      WORDPRESS_DB_NAME: wp_db
+    volumes:
+      - ./wordpress:/var/www/html
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: wp_db
+      MYSQL_USER: wp_user
+      MYSQL_PASSWORD: 8ed7bc9667b25c89aa2d85aaa3332846fbeac94a0944d7c939ba8e3ed427db71
+      MYSQL_ROOT_PASSWORD: 872dc891af74b371ec3ca1dfa5c119942036daa6d54ab28959e6b0b3ce926ab1
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  adminer:
+      image: adminer
+      restart: always
+      ports:
+          - 8081:8080
